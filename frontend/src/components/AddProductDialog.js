@@ -73,6 +73,7 @@ const AddProductDialog = ({ open, onClose, onSubmit, product }) => {
                             label="Description"
                             value={formData.description}
                             onChange={handleChange}
+                            required
                             multiline
                             rows={3}
                             fullWidth
