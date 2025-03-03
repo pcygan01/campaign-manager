@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm install -g serve
 
+RUN npm run build
+
 ENV CI=true
 
 CMD ["serve", "-s", "build"]
