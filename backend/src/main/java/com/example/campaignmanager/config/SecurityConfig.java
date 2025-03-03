@@ -51,13 +51,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Allow multiple origins
+        // Allow multiple origins including your deployed frontend
         configuration.setAllowedOrigins(List.of(
             "http://localhost:3000",
             "http://localhost",
             "http://127.0.0.1:3000",
             "http://127.0.0.1",
-            "https://frontend-production-e43b.up.railway.app"
+            "https://campaign-manager-production.up.railway.app",
+            "https://frontend-production-e43b.up.railway.app"  // Add your deployed frontend URL
         ));
         
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));

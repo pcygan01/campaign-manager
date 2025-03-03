@@ -23,7 +23,8 @@ import com.example.campaignmanager.dto.ErrorResponse;
     "http://localhost", 
     "http://127.0.0.1:3000", 
     "http://127.0.0.1", 
-    "https://campaign-manager-production.up.railway.app"
+    "https://campaign-manager-production.up.railway.app",
+    "https://frontend-production-e43b.up.railway.app"
 })
 @RequiredArgsConstructor
 public class AuthenticationController {
