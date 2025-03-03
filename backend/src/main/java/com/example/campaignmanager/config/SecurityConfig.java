@@ -32,8 +32,12 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                // Allow static resources
-                .requestMatchers("/", "/index.html", "/static/**", "/assets/**", "/css/**", "/js/**", "/*.js", "/*.json", "/*.ico", "/favicon.ico").permitAll()
+                // Allow all static resources and public paths
+                .requestMatchers("/", "/index.html", "/static/**", "/assets/**", 
+                                "/css/**", "/js/**", "/*.js", "/*.json", "/*.ico", 
+                                "/favicon.ico", "/error", "/manifest.json", "/*.png", 
+                                "/*.jpg", "/*.svg", "/*.ttf", "/*.woff", "/*.woff2")
+                .permitAll()
                 // Allow authentication endpoints
                 .requestMatchers("/api/auth/**").permitAll()
                 // Allow OPTIONS requests
