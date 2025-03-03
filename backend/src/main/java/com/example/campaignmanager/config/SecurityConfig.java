@@ -57,7 +57,7 @@ public class SecurityConfig {
             "http://localhost",
             "http://127.0.0.1:3000",
             "http://127.0.0.1",
-            "https://campaign-manager-production.up.railway.app"
+            "https://frontend-production-e43b.up.railway.app"
         ));
         
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
