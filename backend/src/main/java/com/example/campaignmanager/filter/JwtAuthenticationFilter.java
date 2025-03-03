@@ -30,17 +30,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        String path = request.getServletPath();
-        System.out.println("JwtAuthenticationFilter processing request for path: " + path);
-
         if (shouldNotFilter(request)) {
             filterChain.doFilter(request, response);
             return;
         }
 
         final String authHeader = request.getHeader("Authorization");
-        
-        System.out.println("Auth header: " + authHeader);
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -74,20 +69,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
-        
-        // Extensive list of paths to bypass authentication
         return path.startsWith("/api/auth/") || 
                path.startsWith("/actuator/") || 
-               path.startsWith("/h2-console/") ||
-               path.startsWith("/api/test/public") ||
-               path.equals("/") ||
-               path.equals("/index.html") ||
-               path.startsWith("/static/") ||
-               path.startsWith("/assets/") ||
-               path.startsWith("/css/") ||
-               path.startsWith("/js/") ||
-               path.equals("/error") ||
-               path.matches(".*\\.(js|css|html|png|jpg|jpeg|gif|ico|json|svg|woff|woff2|ttf|eot)$") ||
-               request.getMethod().equals("OPTIONS");
+               path.startsWith("/h2-console/");
     }
 } 

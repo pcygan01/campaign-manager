@@ -14,12 +14,10 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins(
                     "http://localhost:3000",
-                    "https://campaign-manager-production.up.railway.app",
-                    "https://*.railway.app"
+                    "https://campaign-manager-production.up.railway.app"
                 )
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-                .allowedHeaders("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With")
-                .exposedHeaders("Authorization")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("Authorization", "Content-Type")
                 .allowCredentials(true);
     }
 } 

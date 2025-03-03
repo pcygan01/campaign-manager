@@ -32,12 +32,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                // Allow all static resources and public paths
-                .requestMatchers("/", "/index.html", "/static/**", "/assets/**", 
-                                "/css/**", "/js/**", "/*.js", "/*.json", "/*.ico", 
-                                "/favicon.ico", "/error", "/manifest.json", "/*.png", 
-                                "/*.jpg", "/*.svg", "/*.ttf", "/*.woff", "/*.woff2")
-                .permitAll()
+                // Allow static resources
+                .requestMatchers("/", "/index.html", "/static/**", "/assets/**", "/css/**", "/js/**", "/*.js", "/*.json", "/*.ico", "/favicon.ico").permitAll()
                 // Allow authentication endpoints
                 .requestMatchers("/api/auth/**").permitAll()
                 // Allow OPTIONS requests
@@ -59,22 +55,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Allow both your Railway domain and localhost for development
+        // Allow both localhost and Railway domains
         configuration.setAllowedOrigins(Arrays.asList(
             "http://localhost:3000",
-            "https://campaign-manager-production.up.railway.app",
-            "https://*.railway.app"
+            "https://campaign-manager-production.up.railway.app"
         ));
         
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")); 
-        configuration.setAllowedHeaders(Arrays.asList(
-            "Authorization",
-            "Content-Type",
-            "Accept",
-            "Origin",
-            "X-Requested-With"
-        ));
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

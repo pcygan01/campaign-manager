@@ -13,16 +13,12 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        
-        config.addAllowedOrigin("http://localhost:3000");
-        
-        config.addAllowedMethod("*");
-        
-        config.addAllowedHeader("*");
-        
         config.setAllowCredentials(true);
-        
-        source.registerCorsConfiguration("/api/**", config);
+        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("https://campaign-manager-production.up.railway.app");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 } 
