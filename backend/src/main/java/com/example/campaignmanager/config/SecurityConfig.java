@@ -16,6 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import java.util.Arrays;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -31,13 +32,13 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
+                // Allow static resources
+                .requestMatchers("/", "/index.html", "/static/**", "/assets/**", "/css/**", "/js/**", "/*.js", "/*.json", "/*.ico", "/favicon.ico").permitAll()
+                // Allow authentication endpoints
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/error").permitAll() 
-                .requestMatchers("/actuator/**").permitAll()
-                .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers("/api/users/**").authenticated() 
-                .requestMatchers("/api/products/**").authenticated()
-                .requestMatchers("/api/campaigns/**").authenticated()
+                // Allow OPTIONS requests
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                // Protect other endpoints
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
@@ -53,7 +54,14 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        
+        // Allow both your Railway domain and localhost for development
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:3000",
+            "https://campaign-manager-production.up.railway.app",
+            "https://*.railway.app"
+        ));
+        
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")); 
         configuration.setAllowedHeaders(Arrays.asList(
             "Authorization",

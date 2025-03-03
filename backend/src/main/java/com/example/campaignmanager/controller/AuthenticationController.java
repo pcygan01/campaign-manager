@@ -18,7 +18,7 @@ import com.example.campaignmanager.dto.ErrorResponse;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://campaign-manager-production.up.railway.app", "https://*.railway.app"})
 @RequiredArgsConstructor
 public class AuthenticationController {
 

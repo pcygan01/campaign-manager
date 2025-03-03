@@ -9,10 +9,12 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
+import ProtectedRoute from './components/ProtectedRoute';
 import Campaigns from './pages/Campaigns';
 
 const theme = createTheme();
 
+// PrivateRoute component
 const PrivateRoute = ({ children }) => {
     const { isAuthenticated } = useAuth();
     return isAuthenticated ? children : <Navigate to="/login" />;
